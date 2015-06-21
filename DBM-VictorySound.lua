@@ -5,7 +5,7 @@ local rev = 20000
 local L = DBM_VictorySound_Translations
 
 -- enables debugging messages
-local debugmsg_setting = true;
+local debugmsg_setting = false;
 
 -- path to DBM-VictorySound sounds folder, shouldn't be changed unless we rename the addon
 local path = "Interface\\AddOns\\DBM-VictorySound\\sounds\\"
@@ -16,9 +16,9 @@ local default_settings = {
 	wipeSound = true,
 	victorySound = true,
 	startSound = true,
-	wipePath = 'defeat.mp3',
-	victoryPath = 'victory.mp3',
-	startPath = 'start.mp3',
+	wipePath = 'Defeat_SuperMarioBros.mp3',
+	victoryPath = 'Victory_SuperMarioBros.mp3',
+	startPath = 'Music_SuperMarioBros.mp3',
 --~     musicDisable = true,
 	masterSound = true,
 	wipeSoundList = {
@@ -36,7 +36,7 @@ local default_settings = {
 		'Victory_SuperMarioBros3.mp3',
 		'Victory_SuperMarioBrosDungeon.mp3',
 		'Victory_SuperMarioRPG.mp3',
-		'Victory_SuperMarioWorld',
+		'Victory_SuperMarioWorld.mp3',
 	},
 	startSoundList = {
 		'Music_FinalFantasy.mp3',
@@ -215,7 +215,10 @@ local function createpanel()
 			for i=1, getn(settings.victorySoundList), 1 do
 				table.insert(victorySoundListDropdown, { text=settings.victorySoundList[i],value=i })
 			end
-			local victoryList = fileVictory:CreateDropdown(L.VictorySoundList, victorySoundListDropdown, settings.victoryPath, function(value) settings.victoryPath = settings.victorySoundList[value] victoryPath:SetText(settings.victorySoundList[value])  end, 200)
+			local victoryList = fileVictory:CreateDropdown(L.VictorySoundList, victorySoundListDropdown, nil, settings.victoryPath, function(value)
+				settings.victoryPath = settings.victorySoundList[value]
+				victoryPath:SetText(settings.victorySoundList[value])
+			end, 200)
 			victoryList:SetScript("OnShow", function(self) 
 				table.wipe(victorySoundListDropdown)
 				for i=1, getn(settings.victorySoundList), 1 do
@@ -233,17 +236,6 @@ local function createpanel()
 			victoryPath:SetScript("OnShow", 		function(self) self:SetText(settings.victoryPath) end)
 			victoryPlay:SetScript("OnClick",        function(self) playVS(false, true, true, false) end)
 			
---~             local resettool = victoryOptionsPanel:CreateButton(L.Button_ResetSettings, 100, 16)
---~ 			resettool:SetPoint('BOTTOMRIGHT', victoryOptionsPanel.frame, "TOPRIGHT", 0, 0)
---~ 			resettool:SetNormalFontObject(GameFontNormalSmall)
---~ 			resettool:SetHighlightFontObject(GameFontNormalSmall)
---~ 			resettool:SetScript("OnClick", function(self) 
---~ 				table.wipe(DBM_VictorySound_Settings)
---~ 				addDefaultOptions(settings, default_settings)
-
---~ 				DBM_GUI_OptionsFrame:Hide()
---~ 				DBM_GUI_OptionsFrame:Show()				
---~ 			end)
 		end
 
 	-- creates the defeat options panel
@@ -265,7 +257,11 @@ local function createpanel()
 			for i=1, getn(settings.wipeSoundList), 1 do
 				table.insert(wipeSoundListDropdown, { text=settings.wipeSoundList[i],value=i })
 			end
-			local wipeList = fileDefeat:CreateDropdown(L.WipeSoundList, wipeSoundListDropdown, settings.wipePath, function(value) settings.wipePath = settings.wipeSoundList[value] wipePath:SetText(settings.wipeSoundList[value])  end, 200)
+			local wipeList = fileDefeat:CreateDropdown(L.WipeSoundList, wipeSoundListDropdown, nil, settings.wipePath, function(value)
+				settings.wipePath = settings.wipeSoundList[value]
+				wipePath:SetText(settings.wipeSoundList[value])
+			end, 200)
+			
 			wipeList:SetScript("OnShow", function(self) 
 				table.wipe(wipeSoundListDropdown)
 				for i=1, getn(settings.wipeSoundList), 1 do
@@ -283,17 +279,6 @@ local function createpanel()
 			wipePath:SetScript("OnShow", 		    function(self) self:SetText(settings.wipePath) end)
 			wipePlay:SetScript("OnClick",           function(self) playVS(false, true, true, true) end)
 			
---~             local resettool = defeatOptionsPanel:CreateButton(L.Button_ResetSettings, 100, 16)
---~ 			resettool:SetPoint('BOTTOMRIGHT', defeatOptionsPanel.frame, "TOPRIGHT", 0, 0)
---~ 			resettool:SetNormalFontObject(GameFontNormalSmall)
---~ 			resettool:SetHighlightFontObject(GameFontNormalSmall)
---~ 			resettool:SetScript("OnClick", function(self) 
---~ 				table.wipe(DBM_VictorySound_Settings)
---~ 				addDefaultOptions(settings, default_settings)
-
---~ 				DBM_GUI_OptionsFrame:Hide()
---~ 				DBM_GUI_OptionsFrame:Show()				
---~ 			end)
 		end
 		
 	-- creates the start options panel
@@ -321,7 +306,10 @@ local function createpanel()
 			for i=1, getn(settings.startSoundList), 1 do
 				table.insert(startSoundListDropdown, { text=settings.startSoundList[i],value=i })
 			end
-			local startList = area:CreateDropdown(L.StartSoundList, startSoundListDropdown, settings.startPath, function(value) settings.startPath = settings.startSoundList[value] startPath:SetText(settings.startSoundList[value])  end, 200)
+			local startList = area:CreateDropdown(L.StartSoundList, startSoundListDropdown, nil, settings.startPath, function(value)
+				settings.startPath = settings.startSoundList[value]
+				startPath:SetText(settings.startSoundList[value])
+			end, 200)
 			startList:SetScript("OnShow", function(self) 
 				table.wipe(startSoundListDropdown)
 				for i=1, getn(settings.startSoundList), 1 do
@@ -332,8 +320,6 @@ local function createpanel()
 
 			startSound:SetScript("OnClick", 		function(self) settings.startSound = toboolean(self:GetChecked()) end)
 			startSound:SetScript("OnShow", 			function(self) self:SetChecked(settings.startSound) end)
---~             musicDisable:SetScript("OnClick", 		function(self) settings.musicDisable = toboolean(self:GetChecked()) end)
---~ 			musicDisable:SetScript("OnShow", 		function(self) self:SetChecked(settings.musicDisable) end)
 
 			startPath:SetScript("OnTextChanged", 	function(self) settings.startPath = self:GetText() end)
 			startPath:SetScript("OnShow", 		function(self) self:SetText(settings.startPath) end)
@@ -341,17 +327,6 @@ local function createpanel()
 			startPlay:SetScript("OnClick",        function(self) playVS(true, true, false) end)
 			startPlayStop:SetScript("OnClick",        function(self) playVS(false, true, false); end)
 			
---~             local resettool = area:CreateButton(L.Button_ResetSettings, 100, 16)
---~ 			resettool:SetPoint('BOTTOMRIGHT', area.frame, "TOPRIGHT", 0, 0)
---~ 			resettool:SetNormalFontObject(GameFontNormalSmall)
---~ 			resettool:SetHighlightFontObject(GameFontNormalSmall)
---~ 			resettool:SetScript("OnClick", function(self) 
---~ 				table.wipe(DBM_VictorySound_Settings)
---~ 				addDefaultOptions(settings, default_settings)
-
---~ 				DBM_GUI_OptionsFrame:Hide()
---~ 				DBM_GUI_OptionsFrame:Show()				
---~ 			end)
 		end
 end
 
