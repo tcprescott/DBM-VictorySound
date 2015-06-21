@@ -361,6 +361,13 @@ do
 
 			addDefaultOptions(settings, default_settings)
 		end
+		
+		-- Is the player leaving combat?  Kill any music that might be playing.
+		-- This prevents music from continuing to play even if DBM didn't detect the end of combat.
+		if event == "PLAYER_REGEN_ENABLED" then
+			playVS(false, true, false, true)
+		end
+			
 	end)
 
 	-- lets register the Events

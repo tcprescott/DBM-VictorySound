@@ -1,7 +1,7 @@
 ## Interface: 60100
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FFVictorySound|r
 ## Notes: Plays a song on combat start, and on victory or defeat!  Requires DBM-Core to operate.
-## Version: 2.0
+## Version: 2.1
 ## LoadOnDemand: 0
 ## RequiredDeps: DBM-Core
 ## DefaultState: enabled
