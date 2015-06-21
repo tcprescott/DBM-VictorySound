@@ -5,7 +5,7 @@
 ## LoadOnDemand: 0
 ## RequiredDeps: DBM-Core
 ## DefaultState: enabled
-## Author: Thomas Prescott
+## Author: Thomas Prescott (tcprescott@gmail.com)
 ## SavedVariables: DBM_VictorySound_Settings
 localization.en.lua
 DBM-VictorySound.lua

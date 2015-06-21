@@ -376,9 +376,12 @@ do
 			settings = DBM_VictorySound_Settings
 			
 			-- wipe out the settings if they're for a previous version of DBM-VS
-			if ((settings.revision < 20000) or (settings.revision = nil)) then
-				table.wipe(DBM_VictorySound_Settings)
-				addDefaultOptions(settings, default_settings)
+			if (settings.revision == nil) then
+					table.wipe(DBM_VictorySound_Settings)
+					addDefaultOptions(settings, default_settings)
+			elseif (settings.revision < 20000) then
+					table.wipe(DBM_VictorySound_Settings)
+					addDefaultOptions(settings, default_settings)
 			end
 
 			addDefaultOptions(settings, default_settings)
