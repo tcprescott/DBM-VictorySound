@@ -1,4 +1,4 @@
-# dbm-victorysound
+# DBM-VictorySound
 VictorySound addon for DBM
 
 DBM-VictorySound
