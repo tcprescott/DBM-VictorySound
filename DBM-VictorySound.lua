@@ -373,21 +373,20 @@ do
 	mainframe:SetScript("OnEvent", function(self, event, ...)
 		if event == "ADDON_LOADED" and select(1, ...) == "DBM-VictorySound" then
 			-- Update settings of this Addon
-			
 			settings = DBM_VictorySound_Settings
 			
 			-- wipe out the settings if they're for a previous version of DBM-VS
-if ((settings.revision < 20000) or (settings.revision = nil)) then
-table.wipe(DBM_VictorySound_Settings)
-addDefaultOptions(settings, default_settings)
-end
+			if ((settings.revision < 20000) or (settings.revision = nil)) then
+				table.wipe(DBM_VictorySound_Settings)
+				addDefaultOptions(settings, default_settings)
+			end
 
-addDefaultOptions(settings, default_settings)
-end
-end)
+			addDefaultOptions(settings, default_settings)
+		end
+	end)
 
--- lets register the Events
-mainframe:RegisterEvent("ADDON_LOADED")
+	-- lets register the Events
+	mainframe:RegisterEvent("ADDON_LOADED")
 end
 
 function DBM:VS_StartCombat(mod, delay, synced)
